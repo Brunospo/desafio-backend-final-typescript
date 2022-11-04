@@ -3,7 +3,7 @@ import "dotenv/config"
 
 const port = process.env.DB_PORT as number | undefined
 
-const config: { [key: string]: Knex.Config } = {
+export const config: { [key: string]: Knex.Config } = {
     development: {
 
       client: "pg",
@@ -45,5 +45,3 @@ const config: { [key: string]: Knex.Config } = {
   }
 
 };
-
-module.exports = config;

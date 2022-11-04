@@ -13,7 +13,7 @@ const clientRouter = require('./router/clientRouter');
 const orderRouter = require('./router/orderRouter');
 const uploadImageRouter = require('./router/uploadImageRouter'); */
 
-//const { errorMiddleware } = require('./middlewares/errorMiddleware');
+import { errorMiddleware } from "./middlewares/errorMiddleware"
 
 const app = express();
 
@@ -29,6 +29,6 @@ app.use('/pedido', orderRouter);
 app.use('/upload', uploadImageRouter); */
 
 //Catch all
-//app.use(errorMiddleware);
+app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => { console.log('Servidor rodando') });; //eslint-disable-line

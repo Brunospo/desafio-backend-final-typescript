@@ -1,7 +1,9 @@
-/* eslint-disable no-unused-vars */
-const errorMiddleware = (error, req, res, next) => {
+import { NextFunction, Request, Response } from "express";
+import { ApiError } from "../utils/apiErros";
+
+export const errorMiddleware = (error: Error & Partial<ApiError>, req: Request, res: Response, next: NextFunction) => {
 	
-	if (error.name === 'ValidationError'){
+	if (error.name === 'ValidationError') {
 		return res.status(400).json({ message: error.message });
 	}
   
@@ -11,8 +13,4 @@ const errorMiddleware = (error, req, res, next) => {
 
 	const statusCode = error.statusCode ?? 500;
 	return res.status(statusCode).json({message: error.message});
-};
-
-module.exports = {
-	errorMiddleware
 };

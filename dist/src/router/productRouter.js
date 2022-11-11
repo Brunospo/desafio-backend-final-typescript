@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const productController_1 = require("../controllers/productController");
+const productMiddleware_1 = require("../middlewares/productMiddleware");
+const validateTokenMiddleware_1 = require("../middlewares/validateTokenMiddleware");
+const router = (0, express_1.Router)();
+router.use(validateTokenMiddleware_1.validateToken);
+router.post('/', new productMiddleware_1.ProductMiddleware().validateBodyFields, new productController_1.ProductController().registerProduct);
+router.put('/:id', new productMiddleware_1.ProductMiddleware().validateProductId, new productMiddleware_1.ProductMiddleware().validateBodyFields, new productMiddleware_1.ProductMiddleware().deleteSupabaseImgIfExists, new productController_1.ProductController().editProduct);
+router.get('/', new productMiddleware_1.ProductMiddleware().validateCategoryQuery, new productController_1.ProductController().listProduct);
+router.get('/:id', new productMiddleware_1.ProductMiddleware().validateProductId, new productController_1.ProductController().detailProduct);
+router.delete('/:id', new productMiddleware_1.ProductMiddleware().validateProductId, new productMiddleware_1.ProductMiddleware().validateIfHasProductInOrder, new productMiddleware_1.ProductMiddleware().deleteSupabaseImgIfExists, new productController_1.ProductController().deleteProduct);
+exports.default = router;

@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const clientMiddleware_1 = require("../middlewares/clientMiddleware");
+const clientController_1 = require("../controllers/clientController");
+const validateTokenMiddleware_1 = require("../middlewares/validateTokenMiddleware");
+const router = (0, express_1.Router)();
+router.use(validateTokenMiddleware_1.validateToken);
+router.post('/', new clientMiddleware_1.ClientMiddleware().validateBodyClient, new clientController_1.ClientController().registerClient);
+router.put('/:id', new clientMiddleware_1.ClientMiddleware().validateId, new clientMiddleware_1.ClientMiddleware().validateUpdateBody, new clientController_1.ClientController().updateClient);
+router.get('/', new clientController_1.ClientController().listClient);
+router.get('/:id', new clientMiddleware_1.ClientMiddleware().validateId, new clientController_1.ClientController().detailClient);
+exports.default = router;

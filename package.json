@@ -4,8 +4,8 @@
   "description": "![](https://i.imgur.com/xG74tOh.png)",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/index.js",
-    "start": "node ./src/index.js",
+    "dev": "nodemon ./dist/src/index.js",
+    "start": "node ./dist/src/index.js",
     "dev:ts": "ts-node-dev --respawn --transpile-only ./src/index.ts"
   },
   "repository": {

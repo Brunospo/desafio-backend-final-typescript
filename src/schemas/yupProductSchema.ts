@@ -1,6 +1,6 @@
-const yup = require('../config/yup');
+import yup from '../config/yup';
 
-const validateRegisterFields = yup.object().shape({
+export const validateRegisterFields = yup.object().shape({
 	descricao: yup.string().required(),
 	quantidade_estoque: yup.number().min(0).integer('quantidade_estoque deve receber um número inteiro').required(),
 	valor: yup.number().min(0).integer('O valor deve ser informado em cantavos').required(),
@@ -8,11 +8,6 @@ const validateRegisterFields = yup.object().shape({
 	produto_imagem: yup.string().url().nullable()
 });
 
-const validateIdtype = yup.object().shape({
+export const validateIdtype = yup.object().shape({
 	id: yup.number().positive().integer()
 });
-
-module.exports = {
-	validateRegisterFields,
-	validateIdtype
-};

@@ -1,8 +1,10 @@
-const jwt = require('jsonwebtoken');
-const knex = require('../config/knexConnection');
-const { UnauthorizedError, NotFoundError } = require('../utils/apiErros');
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import knex from '../database/index';
 
-const validateToken = async (req, res, next) => {
+import { UnauthorizedError, NotFoundError } from '../utils/apiErros';
+import { Request, Response, NextFunction } from 'express';
+
+export const validateToken = async (req: Request, res: Response, next: NextFunction) => {
 
 	const { authorization } = req.headers;
 
@@ -12,7 +14,7 @@ const validateToken = async (req, res, next) => {
 
 	const token = authorization.replace('Bearer ', '').trim();
 
-	const { id } = jwt.verify(token, process.env.JWT_SECUREPASSWORD); //eslint-disable-line
+	const { id } = jwt.verify(token, process.env.JWT_SECUREPASSWORD ?? "") as JwtPayload; //eslint-disable-line
 
 	const user = await knex.select('id', 'nome', 'email').from('usuarios').where({ id }).first();
 
@@ -23,8 +25,4 @@ const validateToken = async (req, res, next) => {
 	req.usuario = user;
 
 	next();
-};
-
-module.exports = {
-	validateToken
 };

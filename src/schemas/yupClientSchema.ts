@@ -1,7 +1,6 @@
-/* eslint-disable indent */
-const yup = require('../config/yup');
+import yup from "../config/yup"
 
-const validateClientFields = yup.object().shape({
+export const validateClientFields = yup.object().shape({
     nome: yup.string().required(),
     email: yup.string().email('Formato de email inválido').required(),
     cpf: yup.string().required().length(11).matches(/\d{11}/g, 'O CPF deve ser composto apenas de números'),
@@ -13,11 +12,6 @@ const validateClientFields = yup.object().shape({
     estado: yup.string().length(2).matches(/[A-Za-z]{2}/g, 'O estado deve ser composto apenas de letras')
 });
 
-const validateIdtype = yup.object().shape({
+export const validateIdtype = yup.object().shape({
 	id: yup.number().positive().integer()
 });
-
-module.exports = {
-    validateClientFields,
-    validateIdtype
-};
